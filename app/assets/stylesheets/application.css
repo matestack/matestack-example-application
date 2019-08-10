@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+ .header-wrapper {
+   top: 0;
+   left:0;
+   height: 10rem;
+   width: 100%;
+   background-color: lightblue;
+   position: absolute;
+   z-index: -1;
+ }
