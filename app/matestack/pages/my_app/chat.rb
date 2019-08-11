@@ -9,13 +9,13 @@ class Pages::MyApp::Chat < Matestack::Ui::Page
           div class: "bg-blue-100 mx-auto rounded p-3" do
             @messages.each do |message|
               div class: 'bg-white rounded p-3 mt-3' do
-                if @from == message[:from]
+                if @from.username == message[:from_user]
                   div class: 'text-blue-700' do
                     plain "You"
                   end
                 else
                   div class: 'text-black' do
-                    plain message[:from].titleize
+                    plain message[:from_user].titleize
                   end
                 end
                 div class: 'font-thin' do
@@ -44,7 +44,7 @@ class Pages::MyApp::Chat < Matestack::Ui::Page
       for: :message,
       method: :post,
       path: :messages_path,
-      params: { from: @from, to: @to },
+      params: { from: @from.id, to: @to.id },
       success: { emit: "new_input" }
     }
   end

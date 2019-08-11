@@ -1,13 +1,19 @@
 class ChatsController < ApplicationController
   def new
-    @from = User.find(params[:from]).username
-    @to = params[:to]
-    if @to == 'global'
-      @messages = Rails.cache.read(Date.today.to_s + "_messages_#{@to}") || []
+    @from = User.find(params[:from])
+    if params[:to] == 'global'
+      @to = OpenStruct.new(id: 'global')
+      @messages = Rails.cache.read(Date.today.to_s + "_messages_#{@to.id}") || []
     else
-      @messages = Rails.cache.read(Date.today.to_s + "_messages_#{@from}_#{@to}") || []
+      @to = User.find(params[:to])
+      @messages = Conversation.find_messages(@from.id, @to.id)
     end
-    @messages = @messages.last(5)
+
+    @messages = @messages&.map do |message|
+      message[:from_user] = User.find(message[:from]).username
+      message
+    end.last(5)
+
     responder_for(Pages::MyApp::Chat)
   end
 

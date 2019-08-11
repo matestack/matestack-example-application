@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     end
 
     messages = Rails.cache.read(cache_key) || []
-    messages << {body: permitted_params[:body], from: from, to: to}
+    messages << {body: permitted_params[:body], from: from, to: to, created_at: DateTime.now.to_s}
     Rails.cache.write(cache_key, messages)
     broadcast
   end

@@ -8,6 +8,8 @@ class User
 
   def self.find(cuid)
     user_details = Rails.cache.read("#{Date.today.to_s}_users").find{|user| user[:id] == cuid}
+    return User.new(username: 'anonymous') if user_details.nil?
+
     User.new(user_details)
   end
 
