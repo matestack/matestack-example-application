@@ -1,15 +1,23 @@
 class MessagesController < ApplicationController
   def create
-    messages = Rails.cache.read(Date.today.to_s + "_messages") || []
-    messages << {body: permitted_params[:body], from: params[:user] }
-    Rails.cache.write(Date.today.to_s + "_messages", messages)
+    from = params[:from]
+    to = params[:to]
+    if to == 'global'
+      cache_key = Date.today.to_s + "_messages_#{to}"
+    else
+      cache_key = Date.today.to_s + "_messages_#{to}_#{from}"
+    end
+
+    messages = Rails.cache.read(cache_key) || []
+    messages << {body: permitted_params[:body], from: from, to: to}
+    Rails.cache.write(cache_key, messages)
     broadcast
   end
 
   private
 
     def permitted_params
-      params.require(:message).permit(:body, :user)
+      params.require(:message).permit(:body)
     end
 
     def broadcast

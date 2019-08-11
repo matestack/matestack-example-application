@@ -1,17 +1,27 @@
 class Pages::MyApp::Chat < Matestack::Ui::Page
-  def prepare
-  end
-
   def response
     components {
-      div class: "bg-white rounded mx-auto w-1/2 my-10 p-10" do
-        span do
-          plain "Username: #{@user}"
+      div class: "bg-white rounded mx-auto w-full md:w-1/2 my-10 p-5" do
+        div class: 'text-3xl mb-3' do
+          plain 'Chat'
         end
         async rerender_on: "new_message_received" do
-          @messages.each do |message|
-            div class: 'w-full block' do
-              plain "#{message[:from] || 'anonymous'}: #{message[:body]}"
+          div class: "bg-blue-100 mx-auto rounded p-3" do
+            @messages.each do |message|
+              div class: 'bg-white rounded p-3 mt-3' do
+                if @from == message[:from]
+                  div class: 'text-blue-700' do
+                    plain "You"
+                  end
+                else
+                  div class: 'text-black' do
+                    plain message[:from].titleize
+                  end
+                end
+                div class: 'font-thin' do
+                  plain message[:body]
+                end
+              end
             end
           end
         end
@@ -34,7 +44,7 @@ class Pages::MyApp::Chat < Matestack::Ui::Page
       for: :message,
       method: :post,
       path: :messages_path,
-      params: { user: @user },
+      params: { from: @from, to: @to },
       success: { emit: "new_input" }
     }
   end

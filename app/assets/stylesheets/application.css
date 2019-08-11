@@ -17,9 +17,9 @@
  .header-wrapper {
    top: 0;
    left:0;
-   height: 10rem;
+   height: 12rem;
    width: 100%;
-   background-color: lightblue;
+   background-color: lightskyblue;
    position: absolute;
    z-index: -1;
  }

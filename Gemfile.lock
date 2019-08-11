@@ -86,6 +86,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    cuid (1.0.1)
     declarative (0.0.10)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
@@ -261,6 +262,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
+  cuid
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   matestack-ui-core (~> 0.7.0)
