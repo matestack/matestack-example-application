@@ -3,7 +3,7 @@ class Apps::MyApp < Matestack::Ui::App
   def response
     components {
       header do
-        heading size: 1, text: "My App"
+        heading size: 1, text: "Tasks"
       end
       main do
         page_content
