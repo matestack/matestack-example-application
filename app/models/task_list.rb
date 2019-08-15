@@ -1,6 +1,6 @@
 class TaskList < Base
   attr_accessor :id, :description, :tasks
-  
+
   @@all = []
 
   def initialize(attributes)
@@ -9,11 +9,17 @@ class TaskList < Base
     @tasks = []
   end
 
+  def reload
+    self.tasks = TaskList.find(self.id).tasks
+    self
+  end
+
   def self.all
     @@all
   end
 
   def save
+    # binding.pry
     super
     @@all << self if @@all.select{|task| task.id == self.id}.none?
   end
