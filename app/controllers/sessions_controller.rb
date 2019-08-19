@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.new(id: permitted_params[:id], username: permitted_params[:username])
+
     if user.save
       render json: {}, status: :ok
     end
