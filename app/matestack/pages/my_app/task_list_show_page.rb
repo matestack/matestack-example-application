@@ -1,18 +1,20 @@
 class Pages::MyApp::TaskListShowPage < Matestack::Ui::Page
   def prepare
     @task_lists = TaskList.all
-    @task_list = TaskList.find(params[:id])
   end
 
   def response
     components {
       div class: "mx-auto w-2/3" do
         div class: 'bg-white mt-10 ml-2 p-2' do
-          div do
-            paragraph class: "mb-5", text: "#{@task_list.description} tasks"
-            async rerender_on: "render_tasks" do
+          div class: "ml-2" do
+            paragraph class: "text-4xl", text: "#{@task_list.description} tasks"
+            hr
+            async rerender_on: "tasks_updated" do
               @task_list.tasks.each do |task|
-                button class: "btn block p-3 w-full text-left mb-3 hover:bg-gray-100", text: task.description
+                action(delete_task_config(task.id)) do
+                  button class: "btn block p-3 w-full text-left mb-3 hover:bg-gray-100 hover:line-through", text: task.description
+                end
               end
             end
             form create_task_config(@task_list.id), :include do
@@ -38,7 +40,21 @@ class Pages::MyApp::TaskListShowPage < Matestack::Ui::Page
         task_list_id: task_list_id
       },
       success: {
-        emit: "task_created"
+        emit: "tasks_updated"
+      }
+    }
+  end
+
+  def delete_task_config(task_id)
+    return {
+      for: :task,
+      path: :task_path,
+      method: :delete,
+      params: {
+        id: task_id
+      },
+      success: {
+        emit: "tasks_updated"
       }
     }
   end

@@ -14,4 +14,11 @@ class Task < Base
     task_list.save
     task
   end
+
+  def destroy
+    task_list = TaskList.find(self.task_list_id)
+    task_list.tasks = task_list.tasks.select{|task| task.id != self.id}
+    task_list.save
+    super
+  end
 end

@@ -7,7 +7,7 @@ class Pages::MyApp::TaskListPage < Matestack::Ui::Page
     components {
       div class: "mx-auto w-2/3 flex" do
         div class: "flex-1 w-1/3 bg-white mt-10 p-3 ml-2" do
-          plain "Task lists"
+          paragraph class: "text-4xl", text: "Task lists"
           hr
           async rerender_on: "task_list_created" do
             @task_lists.each do |task_list|

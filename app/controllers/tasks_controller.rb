@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    Task.find(params[:task_id]).destroy
+    Task.find(params[:id]).destroy
   end
 
   private

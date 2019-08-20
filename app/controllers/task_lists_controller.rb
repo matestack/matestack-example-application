@@ -4,6 +4,7 @@ class TaskListsController < ApplicationController
   end
 
   def show
+    @task_list = TaskList.find(params[:id])
     responder_for(Pages::MyApp::TaskListShowPage)
   end
 

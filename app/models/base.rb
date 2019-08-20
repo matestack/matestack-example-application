@@ -11,7 +11,7 @@ class Base
   def self.create(attributes)
     element = new(attributes)
     element.save
-    element 
+    element
   end
 
   def update(attributes)
