@@ -1,4 +1,8 @@
 class Pages::MyApp::TaskListPage < Matestack::Ui::Page
+  def prepare
+    @task_lists = TaskList.all
+  end
+
   def response
     components {
       div class: "mx-auto w-2/3 flex" do
@@ -22,26 +26,6 @@ class Pages::MyApp::TaskListPage < Matestack::Ui::Page
             end
           end
         end
-        # div class: 'flex-2 w-2/3 bg-white mt-10 ml-2 p-2' do
-        #   async rerender_on: "task_list_created" do
-        #     @task_lists.each do |task_list|
-        #       div rerender_on: "task_created", show_on: "show_tasks_#{task_list.id}" do
-        #         plain "#{task_list.description} tasks"
-        #         task_list.reload.tasks.each do |task|
-        #           plain task
-        #         end
-        #         div do
-        #           form create_task_config(task_list.id), :include do
-        #             form_input class: "w-full block border p-3 m-1", id: 'description', key: :description, type: :text, placeholder: "Enter task description..."
-        #             form_submit do
-        #               button class: 'btn bg-green-300 hover:bg-green-400 p-3 w-full', text: 'Create task'
-        #             end
-        #           end
-        #         end
-        #       end
-        #     end
-        #   end
-        # end
       end
     }
   end

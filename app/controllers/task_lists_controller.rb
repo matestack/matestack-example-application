@@ -1,12 +1,9 @@
 class TaskListsController < ApplicationController
   def index
-    @task_lists = TaskList.all
     responder_for(Pages::MyApp::TaskListPage)
   end
 
   def show
-    @task_lists = TaskList.all
-    @task_list = TaskList.find(params[:id])
     responder_for(Pages::MyApp::TaskListShowPage)
   end
 

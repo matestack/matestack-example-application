@@ -19,7 +19,6 @@ class TaskList < Base
   end
 
   def save
-    # binding.pry
     super
     @@all << self if @@all.select{|task| task.id == self.id}.none?
   end
