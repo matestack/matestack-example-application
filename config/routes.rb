@@ -4,7 +4,4 @@ Rails.application.routes.draw do
   resources :messages, only: :create
   get "/chat/:from/:to", to: "chats#new", as: "chat"
   resources :chats, only: :create
-  # scope :my_app do
-  #   get 'my_example_page', to: 'my_app#my_example_page'
-  # end
 end
