@@ -22,7 +22,7 @@ class Pages::MyApp::Sessions::New < Matestack::Ui::Page
 
   def form_config
     return {
-      for: @user,
+      for: :user,
       method: :post,
       path: :sessions_path,
       success: {

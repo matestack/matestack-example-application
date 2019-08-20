@@ -1,21 +1,11 @@
 class Message
   def self.where(attributes)
-    if attributes[:to] == 'global'
-      cache_key = Date.today.to_s + "_messages_#{to}"
-    else
-      cache_key = Date.today.to_s + "_messages_#{to}_#{from}"
-    end
-
+    cache_key = generate_cache_key(attributes[:to], attributes[:from])
     Rails.cache.read(cache_key) || []
   end
 
   def self.create(attributes)
-    if attributes[:to] == 'global'
-      cache_key = Date.today.to_s + "_messages_#{to}"
-    else
-      cache_key = Date.today.to_s + "_messages_#{to}_#{from}"
-    end
-
+    cache_key = generate_cache_key(attributes[:to], attributes[:from])
     messages = where(attributes)
     messages << {
       body: attributes[:body],
@@ -26,4 +16,14 @@ class Message
 
     Rails.cache.write(cache_key, messages)
   end
+
+  private
+
+    def self.generate_cache_key(to, from)
+      if to == 'global'
+        cache_key = Date.today.to_s + "_messages_#{to}"
+      else
+        cache_key = Date.today.to_s + "_messages_#{to}_#{from}"
+      end
+    end
 end

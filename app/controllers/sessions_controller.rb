@@ -12,6 +12,6 @@ class SessionsController < ApplicationController
   end
 
   def permitted_params
-    params.require(:null).permit(:id, :username)
+    params.require(:user).permit(:id, :username)
   end
 end
