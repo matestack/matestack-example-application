@@ -1,9 +1,7 @@
-class Apps::MyApp < Matestack::Ui::App
-
+class Apps::Chat < Matestack::Ui::App
   def response
     components {
-      header do
-      end
+      header class: "header-wrapper"
       main do
         page_content
       end
@@ -11,5 +9,4 @@ class Apps::MyApp < Matestack::Ui::App
       end
     }
   end
-
 end

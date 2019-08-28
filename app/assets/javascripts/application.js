@@ -14,3 +14,9 @@
 //= require activestorage
 //= require_tree .
 //= require matestack-ui-core
+
+App.cable.subscriptions.create("MatestackUiCoreChannel", {
+  received(data) {
+    MatestackUiCore.matestackEventHub.$emit('MatestackUiCoreChannel', data)
+  }
+});
