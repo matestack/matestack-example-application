@@ -1,6 +1,7 @@
-class Pages::MyApp::TaskListShowPage < Matestack::Ui::Page
+class Pages::Todo::TaskListShowPage < Matestack::Ui::Page
+
   def prepare
-    @task_lists = TaskList.all
+    @task_list = TaskList.find(context[:params][:id])
   end
 
   def response
@@ -23,7 +24,7 @@ class Pages::MyApp::TaskListShowPage < Matestack::Ui::Page
                 button class: 'btn block bg-green-300 hover:bg-green-400 p-3 mt-3 w-full', text: 'Create task'
               end
 
-              link path: :task_lists_path, class: 'btn block bg-red-300 hover:bg-red-400 p-3 text-center mt-3 w-full', text: 'Back to task lists'
+              transition path: :todo_task_lists_path, class: 'btn block bg-red-300 hover:bg-red-400 p-3 text-center mt-3 w-full', text: 'Back to projects'
             end
           end
         end
@@ -34,7 +35,7 @@ class Pages::MyApp::TaskListShowPage < Matestack::Ui::Page
   def create_task_config(task_list_id)
     return {
       for: :task,
-      path: :tasks_path,
+      path: :todo_tasks_path,
       method: :post,
       params: {
         task_list_id: task_list_id
@@ -45,10 +46,27 @@ class Pages::MyApp::TaskListShowPage < Matestack::Ui::Page
     }
   end
 
+  # def toggle_done_config(task)
+  #   return {
+  #     for: :task,
+  #     path: :task_path,
+  #     method: :put,
+  #     params: {
+  #       id: task.id,
+  #       task: {
+  #         done: !task.done
+  #       }
+  #     },
+  #     success: {
+  #       emit: "tasks_updated"
+  #     }
+  #   }
+  # end
+
   def delete_task_config(task_id)
     return {
       for: :task,
-      path: :task_path,
+      path: :todo_task_path,
       method: :delete,
       params: {
         id: task_id

@@ -1,11 +1,10 @@
-class TaskListsController < ApplicationController
+class Todo::TaskListsController < ApplicationController
   def index
-    responder_for(Pages::MyApp::TaskListPage)
+    responder_for(Pages::Todo::TaskListPage)
   end
 
   def show
-    @task_list = TaskList.find(params[:id])
-    responder_for(Pages::MyApp::TaskListShowPage)
+    responder_for(Pages::Todo::TaskListShowPage)
   end
 
   def create
